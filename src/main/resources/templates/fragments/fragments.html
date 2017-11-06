@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--this makes title dynamic-->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}"></title>
+    <!-- include stylesheets, etc here -->
+</head>
+<body>
+<nav th:fragment="navbar">
+    <ul>
+        <li><a>contact</a></li>
+        <li><a>about</a></li>
+        <li><a>home</a></li>
+
+
+    </ul>
+</nav>
+<footer th:fragment="footer">
+
+    <p>Posted by: Carlo</p>
+    <span>Copyrights 2017</span><span>&copy;</span>
+    <p>Contact information: <a href="mailto:someone@example.com">
+        someone@example.com</a>.</p>
+</footer>
+</body>
+</html>
