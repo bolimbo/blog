@@ -24,15 +24,15 @@ public class PostSvc {
         return posts;
     }
 
-    public Post findOne(int id){
-        return posts.get(id - 1);
+    public Post findOne(long id){
+        return posts.get((int) id - 1);
     }
 
     public void createPost(){
-        posts.add(new Post("Yo","This is a test"));
-        posts.add(new Post("This is my title","Tthis is my description"));
-        posts.add(new Post("Robot","I am robot"));
-        posts.add(new Post("Food","I am hungry"));
+        save(new Post("Yo","This is a test"));
+        save(new Post("This is my title","Tthis is my description"));
+        save(new Post("Robot","I am robot"));
+        save(new Post("Food","I am hungry"));
     }
 
 
