@@ -1,14 +1,15 @@
-package com.codeup.blog.controllers;
+package com.codeup.blog.services;
 
 import com.codeup.blog.model.Post;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("postSvc")
 public class PostSvc {
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
 
     public PostSvc(){
         createPost();
@@ -28,8 +29,10 @@ public class PostSvc {
     }
 
     public void createPost(){
-        posts.add(new Post("yo","this is a test"));
-        posts.add(new Post("this is my title","this is my description"));
+        posts.add(new Post("Yo","This is a test"));
+        posts.add(new Post("This is my title","Tthis is my description"));
+        posts.add(new Post("Robot","I am robot"));
+        posts.add(new Post("Food","I am hungry"));
     }
 
 

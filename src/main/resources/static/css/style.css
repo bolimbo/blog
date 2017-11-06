@@ -1,0 +1,33 @@
+#home,#link,#contact{
+    list-style-type: none;
+    text-align:  center;
+    margin: 2px;
+}
+#div-nav{
+    text-align: center;
+}
+#body-index{
+    margin-left: 10px;
+
+
+}
+#ul-container{
+    width: 100%;
+    text-align: center;
+}
+html, #body-index {
+    color: white;
+    background-color:black ;
+}
+#post-div{
+    border: 1px solid white;
+}
+.content {
+    text-align: center;
+}
+#t{
+    text-align: center;
+}
+#nav-div{
+    text-align: center;
+}

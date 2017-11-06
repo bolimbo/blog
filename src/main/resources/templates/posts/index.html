@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragments :: head('index')">
+</head>
+
+<body id="body-index">
+<nav class="content" th:replace=" fragments/fragments :: navbar"></nav>
+<hr/>
+<h1 class="content">index</h1>
+<hr/>
+<div id="post-div" th:each="post : ${posts}">
+
+    <a><h1 class="content" th:text="${post.title}">...</h1></a>
+   <a> <p class="content" th:text="${post.body}">...</p></a>
+</div>
+<hr/>
+<footer th:replace="fragments/fragments :: footer"></footer>
+
+</body>
+
+
+</html>
