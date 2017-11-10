@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8"/>
-    <title>show</title>
+<head th:replace="fragments/fragments :: head('show ad')">
 </head>
-<body>
+<body id="body-index">
+<nav class="content" th:replace=" fragments/fragments :: navbar"></nav>
+
 <h1>show</h1>
+<div>
+    <form th:action="@{/posts/{id}/update (id=${post.id})}" method="post" th:object="${post}">
+        <h1 th:text="${post.title}">...</h1>
+        <h2 th:text="${post.body}">...</h2>
 
+    </form>
+    <form th:action="@{/posts/{id}/delete (id=${post.id})}" method="post" th:object="${post}">
+        <div id="forms">
+            <a id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
 
-    <h1 th:text="${show.title}">...</h1>
-    <h2 th:text="${show.body}">...</h2>
+            <input  id="delete" type="hidden" name="id" th:value="${post.id}"/>
+            <input type="submit" value="delete">
 
+            </input>
+        </div>
+    </form>
+
+</div>
 
 </body>
 </html>

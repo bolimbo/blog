@@ -1,33 +1,62 @@
-#home,#link,#contact{
+#home, #link, #contact {
     list-style-type: none;
-    text-align:  center;
+    text-align: center;
     margin: 2px;
 }
-#div-nav{
+
+#div-nav {
     text-align: center;
 }
-#body-index{
-    margin-left: 10px;
 
+#body-index {
+    color: crimson;
+    margin-left: 10px;
+    background-color: black;
 
 }
-#ul-container{
+
+#ul-container {
     width: 100%;
     text-align: center;
 }
-html, #body-index {
-    color: white;
-    background-color:black ;
+
+html {
+
+    background-color: black;
 }
-#post-div{
+
+#post-div {
     border: 1px solid white;
 }
+
 .content {
     text-align: center;
 }
-#t{
+
+#t {
     text-align: center;
 }
-#nav-div{
+
+#nav-div {
     text-align: center;
+}
+
+.navbar-nav > li {
+    display: inline-block;
+    float: none
+}
+
+.h1, h1, h2 {
+    font-size: 36px;
+    text-align: center;
+}
+#forms{
+    width: 100%;
+    text-align: center;
+}
+#update, #delete {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
 }

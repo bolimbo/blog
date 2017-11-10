@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragments :: head('create')">
+</head>
+<body id="body-index">
+<nav class="content" th:replace=" fragments/fragments :: navbar"></nav>
+
+<div>
+    <form th:action="@{/posts/create}                               " method="post" th:object="${post}">
+        <label>title</label>:
+        <input th:field="*{title}"/>
+        <br/>
+        <label>description</label>
+        <input th:field="*{body}"/>
+        <br/>
+        <input type="submit"/>
+    </form>
+</div>
+
+</body>
+</html>

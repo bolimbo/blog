@@ -11,9 +11,24 @@
 <hr/>
 <div id="post-div" th:each="post : ${posts}">
 
-    <h1 class="content" th:text="${post.title}">...</h1>
+    <h1 class="title-index">
+        <a th:href="@{/posts/{id} (id = ${post.id})}" th:text="${post.title}"></a>
+    </h1>
     <p class="content" th:text="${post.body}">...</p>
-</div>
+    <form th:action="@{/posts/{id}/delete (id=${post.id})}" method="post" th:object="${post}">
+        <div id="forms">
+            <a id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
+
+        <input  id="delete" type="hidden" name="id" th:value="${post.id}"/>
+        <input type="submit" value="delete">
+
+        </input>
+        </div>
+    </form>
+    </div>
+
+
+
 <hr/>
 <footer th:replace="fragments/fragments :: footer"></footer>
 
