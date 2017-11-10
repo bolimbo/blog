@@ -37,6 +37,8 @@ public class PostController {
 
         ArrayList<Post> posts = new ArrayList<>();
 
+        User user = new User();
+
         model.addAttribute("posts", postSvc.findAll());
 
         return "posts/index";

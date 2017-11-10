@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .logoutSuccessUrl("/login?logout")
  .and()
                 .authorizeRequests()
-                .antMatchers("/posts/create")
+                .antMatchers("/posts/create","/posts/{id}/delete")
                 .authenticated();
     }
 
