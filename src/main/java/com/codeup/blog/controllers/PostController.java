@@ -34,13 +34,10 @@ public class PostController {
 
     @GetMapping("/posts")
     public String showAll(Model model) {
-
-        ArrayList<Post> posts = new ArrayList<>();
-
-        User user = new User();
-
+//        Post post = postSvc.findOne(id);
+//        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("showEditButton", user == post.getUser());
         model.addAttribute("posts", postSvc.findAll());
-
         return "posts/index";
     }
 

@@ -35,14 +35,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .permitAll()
 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/logout")
+                .antMatchers("/", "/logout","/posts/{id}/delete", "/posts/{id}/update")
                 .permitAll()
  .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
  .and()
                 .authorizeRequests()
-                .antMatchers("/posts/create","/posts/{id}/delete")
+                .antMatchers("/posts/create","/posts/{id}/delete", "/posts/{id}/update")
                 .authenticated();
     }
 

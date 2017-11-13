@@ -20,19 +20,16 @@ public class Post {
 
     }
 
-
-
-
-
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
     }
 
-    public Post(long id, String title, String body) {
+    public Post(long id, String title, String body, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.user = user; // this gives me access to properties from user, user.getUsername()
     }
     public long getId() {
         return id;
@@ -64,6 +61,10 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUsername() {
+        return user.getUsername();
     }
 
 

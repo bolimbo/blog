@@ -11,7 +11,7 @@ public class DiceController {
     private int random(int min, int max){
         return(int) Math.floor(Math.random() * (max - min + 1) + min);
     }
-    @GetMapping("/")
+    @GetMapping("/dice-roll")
     public String rollDice(){
 
         return "dice-roll";

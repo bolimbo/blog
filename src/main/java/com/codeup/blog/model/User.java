@@ -26,6 +26,7 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        posts = copy.posts;
     }
 
     public User(long id, String username, String password, String email) {
@@ -73,5 +74,7 @@ public class User {
         this.email = email;
     }
 
-
+    public List<Post> getPosts() {
+        return posts;
+    }
 }

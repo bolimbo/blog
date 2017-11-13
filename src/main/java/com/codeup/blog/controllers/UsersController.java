@@ -24,13 +24,13 @@ public class UsersController {
 
         }
 
-        @GetMapping("users/sign-up")
+        @GetMapping("/sign-up")
     public String showRegistrationForm(Model model){
         model.addAttribute("user", new User());
-        return "sign-up";
+        return "users/sign-up";
         }
 
-        @PostMapping("users/sign-up")
+        @PostMapping("/sign-up")
         public String saveUser(@ModelAttribute User user){
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
