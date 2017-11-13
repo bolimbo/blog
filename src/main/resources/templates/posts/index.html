@@ -19,9 +19,9 @@
     <div sec:authorize="isAuthenticated()">
         created by:
 
-        User ID: <span th:text="${#authentication.principal.id}"/>
-        Username: <span th:text="${#authentication.principal.username}"/>
-        Email: <span th:text="${#authentication.principal.email}"/>
+        User ID: <span th:text="${#authentication.principal.id == post.user.id}"/>
+        Username: <span th:text="${#authentication.principal.username == post.user.username}"/>
+        Email: <span th:text="${#authentication.principal.email == post.user.email}"/>
     </div>
     <div sec:authorize="isAuthenticated()">
 
@@ -29,7 +29,7 @@
 
         <form th:action="@{/posts/{id}/delete (id=${post.id})}" method="post" th:object="${post}">
             <div id="forms">
-                <a id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
+                <a th:if="${#authentication.principal.id == post.user.id}" id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
 
                 <input id="delete" type="hidden" name="id" th:value="${post.id}"/>
 

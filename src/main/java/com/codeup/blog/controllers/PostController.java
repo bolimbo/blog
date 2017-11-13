@@ -59,7 +59,8 @@ public class PostController {
 
     @PostMapping("/posts/{id}/update")
     public String updatePost(@ModelAttribute Post post) {
-
+        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(user);
         postSvc.save(post);
 
         return "redirect:/posts";

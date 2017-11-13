@@ -14,10 +14,10 @@
     </form>
     <form th:action="@{/posts/{id}/delete (id=${post.id})}" method="post" th:object="${post}">
         <div id="forms">
-            <a id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
+            <a th:if="${#authentication.principal.id == post.user.id}" id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
 
             <input  id="delete" type="hidden" name="id" th:value="${post.id}"/>
-            <input type="submit" value="delete">
+            <input th:if="${#authentication.principal.id == post.user.id}" type="submit" value="delete">
 
             </input>
         </div>
