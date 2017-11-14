@@ -34,6 +34,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public String showAll(Model model) {
+
         model.addAttribute("posts", postSvc.findAll());
         return "posts/index";
     }
@@ -81,9 +82,7 @@ public class PostController {
             model.addAttribute("post", post);
             return "posts/create";
         }
-        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        post.setUser(user);
-        postSvc.save(post);
+
 
         return "redirect:/posts";
 
