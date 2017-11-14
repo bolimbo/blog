@@ -7,12 +7,16 @@
 <nav class="content" th:replace=" fragments/fragments :: navbar"></nav>
 
 <div>
-    <form th:action="@{/posts/create}                               " method="post" th:object="${post}">
+    <form th:action="@{/posts/create}                            " method="post" th:object="${post}">
         <label>title</label>:
-        <input th:field="*{title}"/>
+        <input th:field="*{title}" name="title"/>
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
+
         <br/>
         <label>description</label>
-        <input th:field="*{body}"/>
+        <input th:field="*{body}" name="body"/>
+        <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
+
         <br/>
         <input type="submit"/>
     </form>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="fragments/fragments :: head('show ad')">
 </head>
 <body id="body-index">
@@ -7,20 +7,23 @@
 
 <h1>show</h1>
 <div>
-    <form th:action="@{/posts/{id}/update (id=${post.id})}" method="post" th:object="${post}">
+    <form th:action="@{/posts/{id}/show (id=${post.id})}" method="post" th:object="${post}">
         <h1 th:text="${post.title}">...</h1>
         <h2 th:text="${post.body}">...</h2>
-
     </form>
     <form th:action="@{/posts/{id}/delete (id=${post.id})}" method="post" th:object="${post}">
         <div id="forms">
-            <a th:if="${#authentication.principal.id == post.user.id}" id="update" th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
+            <th:block sec:authorize="isAuthenticated()">
+                <a th:if="${#authentication.principal.id == post.user.id}" id="update"
+                   th:href="@{/posts/{id}/update (id = ${post.id})}" th:text="${'update '+ post.title}">update</a>
 
-            <input  id="delete" type="hidden" name="id" th:value="${post.id}"/>
-            <input th:if="${#authentication.principal.id == post.user.id}" type="submit" value="delete">
+                <input id="delete" type="hidden" name="id" th:value="${post.id}"/>
 
-            </input>
+                <input type="submit" th:if="${#authentication.principal.id == post.user.id}" value="delete"/>
+            </th:block>
+
         </div>
+
     </form>
 
 </div>

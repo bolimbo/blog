@@ -2,16 +2,16 @@ package com.codeup.blog.controllers;
 
 import com.codeup.blog.model.Post;
 import com.codeup.blog.model.User;
-import com.codeup.blog.repositories.PostsRepository;
 import com.codeup.blog.repositories.UsersRepository;
 import com.codeup.blog.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 
 
 @Controller
@@ -34,9 +34,6 @@ public class PostController {
 
     @GetMapping("/posts")
     public String showAll(Model model) {
-//        Post post = postSvc.findOne(id);
-//        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        model.addAttribute("showEditButton", user == post.getUser());
         model.addAttribute("posts", postSvc.findAll());
         return "posts/index";
     }
@@ -76,12 +73,21 @@ public class PostController {
 
 
     @PostMapping("/posts/create")
-    public String postCreate(@ModelAttribute Post post) {
+    public String postCreate(@Valid Post post, Errors validation,Model model) {
+
+
+        if (validation.hasErrors()){
+            model.addAttribute("errors", validation);
+            model.addAttribute("post", post);
+            return "posts/create";
+        }
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         postSvc.save(post);
 
         return "redirect:/posts";
+
+
     }
 
     @PostMapping("/posts/{id}/delete")
