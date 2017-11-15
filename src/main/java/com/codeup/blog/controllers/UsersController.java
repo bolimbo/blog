@@ -34,7 +34,7 @@ public class UsersController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@Valid User user, Errors validation, String username, String email, Model model) {
+    public String saveUser(@Valid User user, Errors validation, Model model) {
         User existingUser = usersRepository.findByUsername(user.getUsername());
 
         User existingEmail = usersRepository.findByEmail(user.getEmail());

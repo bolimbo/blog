@@ -6,13 +6,19 @@ import com.codeup.blog.repositories.PostsRepository;
 import com.codeup.blog.repositories.UsersRepository;
 import com.codeup.blog.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Controller
@@ -34,6 +40,8 @@ public class PostController {
         this.posts = posts;
 
     }
+    @Value("${file-upload-path}")
+    private String uploadPath;
 
     @GetMapping("/posts")
     public String showAll(Model model) {
@@ -77,8 +85,23 @@ public class PostController {
 
 
     @PostMapping("/posts/create")
-    public String postCreate(@Valid Post post, Errors validation, Model model) {
+    public String postCreate(
+            @RequestParam(name = "file")MultipartFile uploadedFile, Model model, @Valid Post post, Errors validation) {
+        String filename = uploadedFile.getOriginalFilename();
 
+        Path filepath = Paths.get(uploadPath, filename);
+
+        File destinationFile = new File(filepath.toString());
+
+        try{
+            uploadedFile.transferTo(destinationFile);
+            model.addAttribute("message", "File success uploaded");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Oops something went wrong");
+
+        }
 
         if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
@@ -87,6 +110,7 @@ public class PostController {
         }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
+        post.setUploadfile(filename);
         postSvc.save(post);
 
         return "redirect:/posts";

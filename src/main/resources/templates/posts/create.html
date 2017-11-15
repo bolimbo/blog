@@ -7,7 +7,8 @@
 <nav class="content" th:replace=" fragments/fragments :: navbar"></nav>
 
 <div>
-    <form th:action="@{/posts/create}                            " method="post" th:object="${post}">
+
+    <form enctype="multipart/form-data" th:action="@{/posts/create}" method="post" th:object="${post}">
         <label>title</label>:
         <input th:field="*{title}" name="title"/>
         <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
@@ -16,6 +17,9 @@
         <label>description</label>
         <input th:field="*{body}" name="body"/>
         <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
+
+        <label for="file">Upload a file!</label>
+        <input id="file" name="file" type="file" />
 
         <br/>
         <input type="submit"/>
