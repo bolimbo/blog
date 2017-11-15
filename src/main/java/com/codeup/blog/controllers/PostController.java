@@ -2,6 +2,7 @@ package com.codeup.blog.controllers;
 
 import com.codeup.blog.model.Post;
 import com.codeup.blog.model.User;
+import com.codeup.blog.repositories.PostsRepository;
 import com.codeup.blog.repositories.UsersRepository;
 import com.codeup.blog.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,16 @@ public class PostController {
     //    this is the service placeholder that will be final that means it will not be changed
     private final PostSvc postSvc;
     private final UsersRepository usersDao;
+    private PostsRepository posts;
 
 
     //    dependency injection everything ties together Services + controller / class
 
     @Autowired
-    public PostController(PostSvc postSvc, UsersRepository usersDao) {
+    public PostController(PostSvc postSvc, UsersRepository usersDao, PostsRepository posts) {
         this.postSvc = postSvc;
         this.usersDao = usersDao;
+        this.posts = posts;
 
     }
 
@@ -57,7 +60,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/update")
     public String updatePost(@ModelAttribute Post post) {
-        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         postSvc.save(post);
 
@@ -74,15 +77,17 @@ public class PostController {
 
 
     @PostMapping("/posts/create")
-    public String postCreate(@Valid Post post, Errors validation,Model model) {
+    public String postCreate(@Valid Post post, Errors validation, Model model) {
 
 
-        if (validation.hasErrors()){
+        if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
             model.addAttribute("post", post);
             return "posts/create";
         }
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(user);
+        postSvc.save(post);
 
         return "redirect:/posts";
 
@@ -95,4 +100,17 @@ public class PostController {
         postSvc.delete(id);
         return "redirect:/posts";
     }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody
+    Iterable<Post> viewAllPostsInJSONFormat() {
+        return posts.findAll();
+    }
+
+    @GetMapping("/posts/ajax")
+    public String viewAllAdsWithAjax() {
+        return "posts/ajax";
+    }
 }
+
+
