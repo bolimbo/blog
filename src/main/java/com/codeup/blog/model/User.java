@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,17 +16,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank(message = "username can't be blank")
     @Column(nullable = false, unique = true)
     private String username;
+
     @NotBlank(message = "password can't be blank")
     @Size(min = 8, message ="password must be at least 8 characters long")
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String password;
+
     @NotBlank(message = "email can't be blank")
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(insertable = false, updatable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date date;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -42,6 +49,15 @@ public class User {
         username = copy.username;
         password = copy.password;
         posts = copy.posts;
+        date = copy.date;
+    }
+
+    public User(long id, String username, String password, String email,Date date) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.date = date;
     }
 
     public User(long id, String username, String password, String email) {

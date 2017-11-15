@@ -20,11 +20,17 @@
                 <input id="delete" type="hidden" name="id" th:value="${post.id}"/>
 
                 <input type="submit" th:if="${#authentication.principal.id == post.user.id}" value="delete"/>
+                <a th:if="${#authentication.principal.id == post.user.id}" th:href="@{/posts/create}">upload a file</a>
+
+
             </th:block>
+
+
 
         </div>
 
     </form>
+    <a><img th:src="${'/uploads/' + post.uploadfile}" alt=""/></a>
 
 </div>
 
