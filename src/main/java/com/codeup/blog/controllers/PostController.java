@@ -43,7 +43,7 @@ public class PostController {
     @Value("${file-upload-path}")
     private String uploadPath;
 
-    @GetMapping("/posts")
+    @GetMapping("/")
     public String showAll(Model model) {
 
         model.addAttribute("posts", postSvc.findAll());
